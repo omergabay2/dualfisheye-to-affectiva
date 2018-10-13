@@ -6,10 +6,10 @@ https://www.affectiva.com/
 
 theta S - capturing 360 dualfisheye images with 15 fps.
 
-I used ffmpeg to convert dualfisheye image to rectangular image
-the mapping file was created by "projection.c" program which can u find here
+I used ffmpeg to convert dualfisheye image to rectangular image.
+the mapping file was created by "projection.c" program which can u find here.
 https://github.com/raboof/dualfisheye2equirectangular
-you can create a mapping file for several cameras and resultoions
+you can create a mapping file for several cameras and resultoions.
 
 
 

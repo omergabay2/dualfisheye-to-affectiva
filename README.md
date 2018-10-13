@@ -1,10 +1,10 @@
 # dualfisheye-to-affectiva
 this code was written in order to recognize multiple faces expressions with 360 dualfisheye cameras.
-I used theta S camera - capturing 360 dualfisheye images with 15 fps, but with little adjustments you can use any kind of 360 dual camera.
+I used theta S camera - capturing 360 dualfisheye images with 15 fps.
 
 I used ffmpeg to convert dualfisheye image to rectangular image.
 the mapping file was created by "projection.c" program which creates the files
-
+"fisheye_grid_ymap.pgm" and "fisheye_grid_xmap.pgm"
 you can find the program at the link:
 https://github.com/raboof/dualfisheye2equirectangular
 you can create a mapping file for several cameras and resultoions.

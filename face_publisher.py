@@ -22,7 +22,7 @@ def thread1_take_pictures():
     subprocess.call(
         "./projection -x fisheye_grid_xmap.pgm -y fisheye_grid_ymap.pgm -h 960 -w 1920 -r 960 -c 1920 -b 51 -m thetas",
         shell=True)  # create the mapping files from dualfisheye to rectungaular
-    out = cv2.VideoWriter('outpy.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 4, (1920, 960))
+    out = cv2.VideoWriter('outpy.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 2, (1920, 960))
     cap = cv2.VideoCapture(1)
 
     try:
@@ -90,13 +90,17 @@ def rospy_main_thread():
         for (x, y, w, h) in found_faces:
             #publish face each time face is recognized
             #send some more of the information of each face for the affectiva to read it with better chance
-            if (x > 20 and 1280-(x+w) > 20 and y>20 and 640-(y+h)>20):
-                croped_face = image2[3*y/4:y+h+(640-(y+h))/2, (x - 20):(x + w + 20)]
+            if (x > 30 and 1920-(x+w) > 30 ):
+                croped_face = image2[0:960, x-30:(x + w + 30)]
+                black_blank = np.zeros((960,x-30,3) ,np.uint8)
             else:
-                croped_face = image2[3 * y / 4:y + h + (640 - (y + h)) / 2, x:x+w]
-            location = (w / 2 + x / 2) / 10
-            croped_face[0][0][0] = location
-            cv2_frame = np.asarray(croped_face)
+                croped_face = image2[0:960, x:x+w]
+                black_blank = np.zeros((960, x,3) ,np.uint8)
+            black_blank[:] = (0, 0, 0)
+            ready = np.concatenate((black_blank, croped_face), axis=1)
+            location = ((x+w) / 2 + x / 2) / 10
+            ready[0][0][0] = location
+            cv2_frame = np.asarray(ready)
             image_message = bridge.cv2_to_imgmsg(cv2_frame, "bgr8")
 
             try:
@@ -110,7 +114,7 @@ def rospy_main_thread():
 
 def main():
     subprocess.Popen("rostopic echo -p /affdex_data > ~/PycharmProjects/first_project/scripts/test2.txt",shell=True)
-    subprocess.Popen("rosbag record /usb_cam/image_raw",shell=True)
+    #subprocess.Popen("rosbag record /usb_cam/image_raw",shell=True)
     Thread(target=thread1_take_pictures).start()
     rospy_main_thread()
 

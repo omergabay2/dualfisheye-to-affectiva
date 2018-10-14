@@ -22,7 +22,7 @@ capture dualfisheye photos, converting them to rectangular and, display the fixe
 
 echo the "/affdex_data" topic to txt file
 
-then runthe python code plot_data.py:
+then run the python code plot_data.py:
 reading the txt file in live, getting the data and drawing real-time plots of expressions for each face.
 
 

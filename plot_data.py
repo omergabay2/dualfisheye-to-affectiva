@@ -3,6 +3,7 @@ import time
 from matplotlib import style
 from itertools import islice
 
+global plots
 style.use('fivethirtyeight')
 plt.show(block=False)
 fig0 = plt.figure()
@@ -11,7 +12,6 @@ plt.pause(0.01)
 plots = {}
 
 while True:
-    global plots
 
     graph_data = open('test2.txt', 'r').read()
     lines = graph_data.split('\n')
@@ -25,14 +25,13 @@ while True:
         expressions = line.split(',')
         if len(line) > 1:
 
-            time = round(((float(expressions[0]) - float(begin[0])) / 1000000000), 2)
+            times = round(((float(expressions[0]) - float(begin[0])) / 1000000000), 2)
             joy = round(float(expressions[1]), 2)
-            x = int(float(expressions[110]))
+            x = int(float(expressions[111-18]))
 
             face_index=len(faces)
-            print "Number Of Faces", face_index
             for index, timeline in faces.items():
-                if timeline[0]['x'] > x-6 and timeline[0]['x'] < x+6:
+                if timeline[0]['x'] > x-60 and timeline[0]['x'] < x+60:
                     face_index = index
                     break
 
@@ -40,7 +39,7 @@ while True:
                 faces[face_index] = []
 
             personality = {}
-            personality["time"] = time
+            personality["time"] = times
             personality["happy"] = joy
             personality["x"] = x
 

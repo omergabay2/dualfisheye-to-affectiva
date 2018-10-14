@@ -7,7 +7,7 @@ the mapping file was created by "projection.c" program which creates the files
 "fisheye_grid_ymap.pgm" and "fisheye_grid_xmap.pgm"
 you can find the program at the link:
 https://github.com/raboof/dualfisheye2equirectangular
-you can create a mapping file for several cameras and resultoions.
+you can create a mapping file for several cameras and resolutions.
 
 in order to analayze expressions you need to get the affectiva ros node
 https://www.affectiva.com/

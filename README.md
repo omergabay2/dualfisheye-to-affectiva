@@ -17,18 +17,18 @@ face recognition algorithem was taken from https://realpython.com/face-recogniti
 Running The Program
 
 first run: 
-'''
+```
 roslaunch multi_camera_affdex multi_camera_affdex.launch
-'''
+```
 
 then run the python code face_publisher.py: (in Pycharm)
 capture dualfisheye photos, converting them to rectangular and, display the fixed picture,then recognize faces and publish them as image messages to ros topic "/usb_cam/image/raw".
 echo the "/affdex_data" topic to txt file
 
 then run the python code plot_data.py:
-'''
+```
 python plotdata.py
-'''
+```
 reading the txt file in live, getting the data and drawing real-time plots of expressions for each face.
 
 

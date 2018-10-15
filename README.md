@@ -12,7 +12,7 @@ you can create a mapping file for several cameras and resolutions.
 in order to analayze expressions you need to get the affectiva ros node
 https://www.affectiva.com/
 
-face recognition algorithem was taken from https://realpython.com/face-recognition-with-python/
+face detection algorithem was taken from https://realpython.com/face-recognition-with-python/
 
 ## ***Running The Program***
 

@@ -6,9 +6,9 @@ from itertools import islice
 global plots
 style.use('fivethirtyeight')
 plt.show(block=False)
-fig0 = plt.figure()
-plt.draw()
-plt.pause(0.01)
+fig0 = plt.figure(num='expressions')
+#plt.draw()
+#plt.pause(0.01)
 plots = {}
 
 while True:
@@ -28,10 +28,10 @@ while True:
             times = round(((float(expressions[0]) - float(begin[0])) / 1000000000), 2)
             joy = round(float(expressions[1]), 2)
             x = int(float(expressions[111-18]))
-
             face_index=len(faces)
+
             for index, timeline in faces.items():
-                if timeline[0]['x'] > x-60 and timeline[0]['x'] < x+60:
+                if timeline[0]['x'] > x-80 and timeline[0]['x'] < x+80:
                     face_index = index
                     break
 
@@ -51,15 +51,20 @@ while True:
         for index in xrange(len(faces)):
             plots[index] = plt.subplot(len(faces), 1, index + 1)
 
+
     for index, timeline in faces.items():
         xs = []
         ys = []
         for personality in timeline:
             xs.append(personality['time'])
             ys.append(personality['happy'])
-        plot = plots[index]
-        plot.clear()
-        plot.plot(xs, ys)
+        thisplot = plots[index]
+        thisplot.clear()
+        thisplot.plot(xs, ys)
+        thisplot.set_title("person %d x: %d" %((index+1),(timeline[0]['x'])))
+        thisplot.set_ylabel("happy")
+        thisplot.set_xlabel("time(s)")
+        plt.tight_layout()
         plt.pause(0.01)
 
     time.sleep(1)

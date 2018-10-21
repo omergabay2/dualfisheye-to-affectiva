@@ -33,11 +33,43 @@ echo the "/affdex_data" topic to txt file
 ***plot_data.py:***
 reading the ***data.txt*** file in live, getting the data and drawing real-time plots of expressions for each face.
 
-in order to change expressions:
-```ruby
 
-```
+***data.txt***
+Emotions:
+float32 scores between 0 and 100, except for valence (-100 and 100)
+- 0: Joy
+- 1: Anger
+- 2: Disgust
+- 3: Contempt
+- 4: Engagement
+- 5: Fear
+- 6: Sadness
+- 7: Surprise
+- 8: Valence
 
+Expressions: 
+float32 scores between 0 and 100
+- 0: Attention
+- 1: BrowFurrow
+- 2: BrowRaise
+- 3: ChinRaise
+- 4: EyeClosure
+- 5: InnerBrowRaise
+- 6: LipCornerDepressor
+- 7: LipPress
+- 8: LipPucker
+- 9: LipSuck
+- 10: MouthOpen
+- 11: NoseWrinkle
+- 12: Smile
+- 13: Smirk
+- 14: UpperLipRaise
+- 15: jawDrop
+- 16: lipStretch
+- 17: dimpler
+- 18: cheekRaise
+- 19: eyeWiden
+- 20: lidTighten
 
 
 

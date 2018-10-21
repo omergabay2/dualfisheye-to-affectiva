@@ -34,7 +34,8 @@ echo the "/affdex_data" topic to txt file
 reading the ***data.txt*** file in live, getting the data and drawing real-time plots of expressions for each face.
 
 
-***data.txt***
+***data.txt:***
+
 Emotions:
 float32 scores between 0 and 100, except for valence (-100 and 100)
 - 0: Joy

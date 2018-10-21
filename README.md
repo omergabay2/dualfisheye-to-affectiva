@@ -19,7 +19,7 @@ face detection algorithem was taken from https://realpython.com/face-recognition
 ```
 python run.py
 ```
-'''ruby
+```ruby
 import subprocess
 import time
 
@@ -52,7 +52,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-'''
+```
 
 ***python code face_publisher.py:***
 capture dualfisheye photos, converting them to rectangular and, display the fixed picture,then recognize faces and publish them as image messages to ros topic "/usb_cam/image/raw".

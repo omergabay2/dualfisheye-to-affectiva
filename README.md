@@ -15,10 +15,14 @@ https://www.affectiva.com/
 face detection algorithem was taken from https://realpython.com/face-recognition-with-python/
 
 ## ***Running The Program***
+
+***run:***
  
 ```
 python run.py
 ```
+
+
 ```ruby
 import subprocess
 import time

@@ -25,12 +25,12 @@ python run.py
 
 
 
-***python code face_publisher.py:***
+***face_publisher.py:***
 capture dualfisheye photos, converting them to rectangular and, display the fixed picture,then recognize faces and publish them as image messages to ros topic "/usb_cam/image/raw".
 echo the "/affdex_data" topic to txt file
 
 
-***python code plot_data.py:***
+***plot_data.py:***
 reading the ***data.txt*** file in live, getting the data and drawing real-time plots of expressions for each face.
 
 in order to change expressions:

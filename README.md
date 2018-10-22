@@ -31,6 +31,11 @@ capture dualfisheye photos, converting them to rectangular and, display the fixe
 echo the "/affdex_data" topic to txt file
 
 
+***aff_sub.py***
+
+subscribing to affectiva message ***"/affdex_data"*** and find Person index of each person in the room. then publish  the original affectiva data + Person Index as String to ***"/omer_data"*** topic.
+
+
 
 ***plot_data.py:***
 
@@ -38,10 +43,15 @@ reading the ***data.txt*** file in live, getting the data and drawing real-time 
 
 
 
-***data.txt:***
+***The topic "/omer_data":***
+
+
+time: from start running the code in seconds
+Person ID: index number of the recognized person
+location: x from 0 to 1920 of the person
 
 Emotions:
-float32 scores between 0 and 100, except for valence (-100 and 100)
+between 0 and 100, except for valence (-100 and 100)
 - 0: Joy
 - 1: Anger
 - 2: Disgust
@@ -53,7 +63,7 @@ float32 scores between 0 and 100, except for valence (-100 and 100)
 - 8: Valence
 
 Expressions: 
-float32 scores between 0 and 100
+between 0 and 100
 - 0: Attention
 - 1: BrowFurrow
 - 2: BrowRaise

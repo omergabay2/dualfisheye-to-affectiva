@@ -49,10 +49,10 @@ reading the ***data.txt*** file in live, getting the data and drawing real-time 
 
 ### ***The topic "/omer_data":***
 
-
-time: from start running the code in seconds
-Person ID: index number of the recognized person
-location: x from 0 to 1920 of the person
+Data:
+- Time: from start running the code in seconds
+- Person ID: index number of the recognized person
+- location: x from 0 to 1920 of the person
 
 Emotions:
 between 0 and 100, except for valence (-100 and 100)

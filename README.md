@@ -25,25 +25,29 @@ python run.py
 
 
 
-***face_publisher.py:***
+###***face_publisher.py:***
 
 capture dualfisheye photos, converting them to rectangular and, display the fixed picture,then recognize faces and publish them as image messages to ros topic "/usb_cam/image/raw".
-echo the "/affdex_data" topic to txt file
 
 
-***aff_sub.py***
+###***Affectiva ros node (not mine):***
+
+subscribing to image message in topic "/usb_cam/image/raw", then, recognize emotions and expression and publishing them to ***"/affdex_data"*** topic as affdex_msgs messages
+
+
+###***aff_sub.py:***
 
 subscribing to affectiva message ***"/affdex_data"*** and find Person index of each person in the room. then publish  the original affectiva data + Person Index as String to ***"/omer_data"*** topic.
 
 
 
-***plot_data.py:***
+###***plot_data.py:***
 
 reading the ***data.txt*** file in live, getting the data and drawing real-time plots of expressions for each face.
 
 
 
-***The topic "/omer_data":***
+###***The topic "/omer_data":***
 
 
 time: from start running the code in seconds

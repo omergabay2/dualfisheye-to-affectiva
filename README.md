@@ -1,5 +1,5 @@
 # dualfisheye-to-affectiva
-this code was written in order to recognize multiple faces expressions with 360 dualfisheye cameras.
+This code was written in order to recognize multiple faces expressions with 360 dualfisheye cameras.
 I used theta S camera - capturing 360 dualfisheye images with 15 fps.
 
 I used ffmpeg to convert dualfisheye image to rectangular image.
@@ -89,10 +89,6 @@ between 0 and 100
 - 18: cheekRaise
 - 19: eyeWiden
 - 20: lidTighten
-
-
-
-
 
 
 

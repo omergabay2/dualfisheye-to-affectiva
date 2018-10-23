@@ -38,12 +38,7 @@ Subscribing to image message in topic "/usb_cam/image/raw", recognize emotions a
 ### ***aff_sub.py:***
 
 subscribing to affectiva message ***"/affdex_data"*** and find Person index of each person in the room. then publish  the original affectiva data + Person Index as String messages to ***"/omer_data"*** topic.
-
-
-
-### ***plot_data.py:***
-
-reading the ***data.txt*** (echo from /omer_data) file in live, getting the data and drawing real-time plots of expressions for each face.
+In addition, the code plotting graphs of one emotion depends on time to all the faces.
 
 
 

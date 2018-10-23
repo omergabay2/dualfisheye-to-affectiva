@@ -41,7 +41,7 @@ Subscribing to image message in topic "/usb_cam/image/raw", recognize emotions a
 
 ### ***aff_sub.py:***
 
-subscribing to affectiva message ***"/affdex_data"*** and find Person index of each person in the room. then publish  the original affectiva data + Person Index + Look_At possiotion - as String messages to ***"/omer_data"*** topic.
+subscribing to affectiva message ***"/affdex_data"*** and find Person index of each person in the room. then publish  the original affectiva data + Person Index + location + location of looking - as String messages to ***"/omer_data"*** topic.
 In addition, the code plotting graphs of one emotion depends on time to all the faces.
 
 
@@ -52,6 +52,7 @@ Data:
 - Time: from start running the code in seconds
 - Person ID: index number of the recognized person
 - location: x from 0 to 1920 of the person
+- LookAt: x from 0 to 1920 of where the person is looking
 
 Emotions:
 between 0 and 100, except for valence (-100 and 100)

@@ -21,7 +21,11 @@ face detection algorithem was taken from https://realpython.com/face-recognition
 ```
 python run.py
 ```
+In order to read the data - echo from /omer_data topic
 
+```
+rostopic echo /omer_data
+```
 
 ## ***Explanation of the code***
 

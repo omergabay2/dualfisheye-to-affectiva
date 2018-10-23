@@ -89,6 +89,49 @@ between 0 and 100
 - 19: eyeWiden
 - 20: lidTighten
 
+###measurements
+face orientation
+- 0: InterocularDistance
+- 1: Yaw
+- 2: Roll
+- 3: Pitch
+
+###face_points
+elements of face points based on FACS units
+- 0 Right Top Jaw
+- 1 Right Jaw Angle
+- 2 Gnathion 
+- 3 Left Jaw Angle 
+- 4 Left Top Jaw 
+- 5 Outer Right Brow Corner 
+- 6 Right Brow Center 
+- 7 Inner Right Brow Corner 
+- 8 Inner Left Brow Corner 
+- 9 Left Brow Center 
+- 10 Outer Left Brow Corner 
+- 11 Nose Root 
+- 12 Nose Tip 
+- 13 Nose Lower Right Boundary 
+- 14 Nose Bottom Boundary 
+- 15 Nose Lower Left Boundary 
+- 16 Outer Right Eye 
+- 17 Inner Right Eye
+- 18 Inner Left Eye
+- 19 Outer Left Eye
+- 20 Right Lip Corner
+- 21 Right Apex Upper Lip
+- 22 Upper Lip Center
+- 23 Left Apex Upper Lip
+- 24 Left Lip Corner
+- 25 Left Edge Lower Lip
+- 26 Lower Lip Center
+- 27 Right Edge Lower Lip
+- 28 Bottom Upper Lip
+- 29 Top Lower Lip
+- 30 Upper Corner Right Eye
+- 31 Lower Corner Right Eye
+- 32 Upper Corner Left Eye
+- 33 Lower Corner Left Eye 
 
 rqt graph:
 

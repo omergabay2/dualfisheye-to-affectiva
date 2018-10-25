@@ -24,7 +24,7 @@ def thread1_take_pictures():
         shell=True)
     # create the mapping files from dualfisheye to rectungaular 640 1280 640 1280 30 or 960 1920 960 1920 51
 
-    out = cv2.VideoWriter('outpy.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 1, (1920, 960))
+    out = cv2.VideoWriter('outpy.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 2, (1920, 960))
     cap = cv2.VideoCapture(1)
 
     try:
@@ -64,6 +64,7 @@ def thread1_take_pictures():
 
     except:
         print logging.exception("thread1_take_pictures exception")
+        print "Please Turn on Camera or plug it in"
 
     cap.release()
     cv2.destroyAllWindows()
@@ -81,9 +82,9 @@ def rospy_main_thread():
         gray = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(
             gray,
-            scaleFactor=1.15,
+            scaleFactor=1.14,
             minNeighbors=5,
-            minSize=(5, 5),
+            minSize=(10, 10),
             flags=cv2.CASCADE_SCALE_IMAGE
         )
         print("Found {0} faces!".format(len(faces)))
@@ -107,17 +108,15 @@ def rospy_main_thread():
         for (x, y, w, h) in found_faces:
             # publish face each time face is recognized
             # send some more of the information of each face for the affectiva to read it with better chance
-            if x > 30 and 1920 - (x + w) > 30:
-                cropped_face = image2[0:960, x - 30:(x + w + 30)]
-                black_blank = np.zeros((960, x - 30, 3), np.uint8)
+            if x > 30 and (1920 - (x + w)) > 30 and y > 30 and (960 - (y + h)) > 30:
+                cropped_face = image2[(y - 30): (y + h + 30), (x - 30):(x + w + 30)]
+                black_blank = np.zeros((h + 60, (x - 30), 3), np.uint8)
             else:
-                cropped_face = image2[0:960, x:x + w]
-                black_blank = np.zeros((960, x, 3), np.uint8)
+                cropped_face = image2[y:y+h, x:x + w]
+                black_blank = np.zeros((h, x, 3), np.uint8)
 
             black_blank[:] = (0, 0, 0)
             ready = np.concatenate((black_blank, cropped_face), axis=1)
-            #location = ((x + w) / 2 + x / 2) / 10
-            #ready[0][0][0] = location
             cv2_frame = np.asarray(ready)
 
             image_message = bridge.cv2_to_imgmsg(cv2_frame, "bgr8")

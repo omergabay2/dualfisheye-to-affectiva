@@ -3,7 +3,7 @@ import time
 
 def main():
     try:
-        #chose 1 for camera and 2 for rosbag
+        #chose 0 for camera and 1 for rosbag
         mode = 0
 
         process1 = subprocess.Popen("roslaunch multi_camera_affdex multi_camera_affdex.launch", shell=True)
@@ -16,7 +16,7 @@ def main():
             process4 = subprocess.Popen("python face_publisher.py", shell=True)
 
         elif mode == 1:
-            process3 = subprocess.Popen("mplayer ~/PycharmProjects/dualfisheye-to-affectiva/scripts/outpy.avi", shell=True)
+            #process3 = subprocess.Popen("mplayer ~/PycharmProjects/dualfisheye-to-affectiva/scripts/outpy.avi", shell=True)
             process4 = subprocess.Popen("rosbag play last_record.bag", shell=True)
 
         while True:

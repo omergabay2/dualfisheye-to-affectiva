@@ -9,22 +9,23 @@ new_data = str()
 start_time = time.time()
 faces = {}
 plots = {}
+pub = rospy.Publisher("/omer_data", String, queue_size=1)
 
 def callback_affdex_data(msg):
-    global new_data, faces, plots
+    global new_data, faces, plots, pub
     face_index = len(faces)
     x_now = msg.face_points[26].x
-    look_at_x = (((x_now + 960) % 1920) + (2*msg.measurements[1]*(1920/360)))%1920
+    look_at_x = (((x_now + 640) % 1280) + (2*msg.measurements[1]*(1280/360))) % 1280
     look_at_person = "None"
 
     for index, timeline in faces.items():
-        if timeline[0]['X'] > x_now - 80 and timeline[0]['X'] < x_now + 80:
+        if timeline[0]['X'] > x_now - 70 and timeline[0]['X'] < x_now + 70:
             face_index = index
             timeline[0]['X'] = x_now
 
             break
     for index, face in faces.items():
-        if look_at_x > face[0]['X'] - 200 and look_at_x < face[0]['X'] + 200:
+        if look_at_x > face[0]['X'] - 100 and look_at_x < face[0]['X'] + 100:
             look_at_person = index+1
 
     if face_index not in faces:
@@ -41,9 +42,11 @@ def callback_affdex_data(msg):
 
     faces[face_index].append(personality)
 
-    new_data = "time:" + str(times) + "," + "Person ID:" + str(face_index+1) + "," + "Location:" + str(msg.face_points[26].x) + "," + "LookAt:" + str(((x_now + 960) % 1920) - 2 * msg.measurements[2]*(1920/360)) + "," + "LookAtPerson:" + str(look_at_person) + "," + "Joy:" + str(msg.emotions[0]) + "," + "Anger:" + str(msg.emotions[1]) + "," + "Didgust:" + str(msg.emotions[2]) + "," + "Contempt:" + str(msg.emotions[3]) + "," + "Engagement:" + str(msg.emotions[4]) + "," + "Fear:" + str(msg.emotions[5]) + "," + "Sadness:" + str(msg.emotions[6]) + "," + "Yaw:" + str(msg.measurements[1]) + "," + "Roll:" + str(msg.measurements[2]) + "," + "Pitch:" + str(msg.measurements[3]) + "," + "Surprise:" + str(msg.emotions[7]) + "," + "Valence:" + str(msg.emotions[8]) + "," + "Nose Tip" + str(msg.face_points[12].x) + "-" + str(msg.face_points[12].y) + "," + "Chin" + str(msg.face_points[2].x) + "-" + str(msg.face_points[2].y) + "," + "RightEyeOuter" + str(msg.face_points[16].x) + "-" + str(msg.face_points[16].y) + "," + "RightEyeInner" + str(msg.face_points[17].x) + "-" + str(msg.face_points[17].y) + "," + "LeftEyeInner" + str(msg.face_points[18].x) + "-" + str(msg.face_points[18].y) + "LeftEyeOuter" + str(msg.face_points[19].x) + "-" + str(msg.face_points[19].y) + "," + "RightLip Corener" + str(msg.face_points[20].x) + "-" + str(msg.face_points[20].y) + "," + "LeftLipCorner" + str(msg.face_points[24].x) + "-" + str(msg.face_points[24].y)
-    print new_data
+    new_data = "time:" + str(times) + "," + "Person ID:" + str(face_index+1) + "," + "Location:" + str(msg.face_points[26].x) + "," + "LookAt:" + str((((x_now + 640) % 1280) + (2*msg.measurements[1]*(1280/360))) % 1280) + "," + "LookAtPerson:" + str(look_at_person) + "," + "Joy:" + str(msg.emotions[0]) + "," + "Anger:" + str(msg.emotions[1]) + "," + "Didgust:" + str(msg.emotions[2]) + "," + "Contempt:" + str(msg.emotions[3]) + "," + "Engagement:" + str(msg.emotions[4]) + "," + "Fear:" + str(msg.emotions[5]) + "," + "Sadness:" + str(msg.emotions[6]) + "," + "Yaw:" + str(msg.measurements[1]) + "," + "Roll:" + str(msg.measurements[2]) + "," + "Pitch:" + str(msg.measurements[3]) + "," + "Surprise:" + str(msg.emotions[7]) + "," + "Valence:" + str(msg.emotions[8]) + "," + "Nose Tip" + str(msg.face_points[12].x) + "-" + str(msg.face_points[12].y) + "," + "Chin" + str(msg.face_points[2].x) + "-" + str(msg.face_points[2].y) + "," + "RightEyeOuter" + str(msg.face_points[16].x) + "-" + str(msg.face_points[16].y) + "," + "RightEyeInner" + str(msg.face_points[17].x) + "-" + str(msg.face_points[17].y) + "," + "LeftEyeInner" + str(msg.face_points[18].x) + "-" + str(msg.face_points[18].y) + "LeftEyeOuter" + str(msg.face_points[19].x) + "-" + str(msg.face_points[19].y) + "," + "RightLip Corener" + str(msg.face_points[20].x) + "-" + str(msg.face_points[20].y) + "," + "LeftLipCorner" + str(msg.face_points[24].x) + "-" + str(msg.face_points[24].y)
 
+    pub.publish(new_data)
+
+    '''
     if len(faces) > len(plots):
         plots = {}
         for index in xrange(len(faces)):
@@ -58,24 +61,23 @@ def callback_affdex_data(msg):
             look_at_x = personality['Look_At']
             look_at_person = personality["Look_at_Person"]
 
+
         this_plot = plots[index]
         this_plot.clear()
         this_plot.plot(xs, ys)
-        this_plot.set_title("person %d x: %d Look at %d to see person: %s" % ((index + 1), (timeline[0]['X']), look_at_x, look_at_person))
+        this_plot.set_title("person %d x: %d Look at %d to see person: %s" % ((index + 1), (timeline[0]['X']), personality['Look_At'], personality["Look_at_Person"]))
         this_plot.set_ylabel("Joy")
         this_plot.set_xlabel("Time(s)")
         plt.tight_layout()
         plt.pause(0.01)
-
+    '''
 
 def main():
     rospy.init_node('affdex_data_edit', anonymous=True)
     rospy.Subscriber("/affdex_data", AffdexFrameInfo, callback_affdex_data)
-    pub = rospy.Publisher("/omer_data", String, queue_size=1)
-    r = rospy.Rate(20)
-
+    r = rospy.Rate(3)
+    #pub.publish(new_data)
     while not rospy.is_shutdown():
-        pub.publish(new_data)
         r.sleep()
 
 if __name__ == '__main__':

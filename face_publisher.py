@@ -19,12 +19,10 @@ def thread1_take_pictures():
 
     global image
 
-    subprocess.call(
-        "./projection -x fisheye_grid_xmap.pgm -y fisheye_grid_ymap.pgm -h 960 -w 1920 -r 960 -c 1920 -b 51 -m thetas",
-        shell=True)
-    # create the mapping files from dualfisheye to rectungaular 640 1280 640 1280 30 or 960 1920 960 1920 51
+    subprocess.call("./projection -x fisheye_grid_xmap.pgm -y fisheye_grid_ymap.pgm -h 640 -w 1280 -r 640 -c 1280 -b 33 -m thetas", shell=True)
+    # create the mapping files from dualfisheye to rectungaular -h 640 -w 1280 -r 640 -c 1280 -b 29  or 960 1920 960 1920 51
 
-    out = cv2.VideoWriter('outpy.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 2, (1920, 960))
+    out = cv2.VideoWriter('outpy.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 2, (1280, 640))
     cap = cv2.VideoCapture(1)
 
     try:
@@ -34,10 +32,10 @@ def thread1_take_pictures():
             crop_img = frame[0:640, 0:1280]
             # read & cut the unrellavnt data from the image - always 640 and 1280!!!!!
 
-            resize_img = cv2.resize(crop_img, (1920, 960))
+            # resize_img = cv2.resize(crop_img, (1920, 960))
             # resize the image for resolution 1920:960
 
-            cv2.imwrite('captured.png', resize_img)
+            cv2.imwrite('captured.png', crop_img)
             # save the image for ffmpeg
 
             ffmpeg_process = subprocess.Popen("ffmpeg -y -i captured.png -i fisheye_grid_xmap.pgm -i fisheye_grid_ymap.pgm -filter_complex remap fixed.png", shell=True)
@@ -82,9 +80,9 @@ def rospy_main_thread():
         gray = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(
             gray,
-            scaleFactor=1.14,
+            scaleFactor=1.125,
             minNeighbors=5,
-            minSize=(10, 10),
+            minSize=(2, 2),
             flags=cv2.CASCADE_SCALE_IMAGE
         )
         print("Found {0} faces!".format(len(faces)))
@@ -93,7 +91,7 @@ def rospy_main_thread():
     pub = rospy.Publisher('/usb_cam/image_raw', Image, queue_size=1)
     rospy.init_node('Camera_Publisher', anonymous=True)
 
-    rate = rospy.Rate(10)  # 10hzro
+    rate = rospy.Rate(40)  # 10hzro
     bridge = CvBridge()
 
     while not rospy.is_shutdown():
@@ -108,7 +106,7 @@ def rospy_main_thread():
         for (x, y, w, h) in found_faces:
             # publish face each time face is recognized
             # send some more of the information of each face for the affectiva to read it with better chance
-            if x > 30 and (1920 - (x + w)) > 30 and y > 30 and (960 - (y + h)) > 30:
+            if x > 30 and (1280 - (x + w)) > 30 and y > 30 and (640 - (y + h)) > 30:
                 cropped_face = image2[(y - 30): (y + h + 30), (x - 30):(x + w + 30)]
                 black_blank = np.zeros((h + 60, (x - 30), 3), np.uint8)
             else:

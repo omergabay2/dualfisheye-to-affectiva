@@ -5,10 +5,6 @@ I used theta S camera - capturing 360 dualfisheye images with 15 fps.
 I used ffmpeg to convert dualfisheye image to rectangular image.
 the mapping file was created by "projection.c" program which creates the files
 "fisheye_grid_ymap.pgm" and "fisheye_grid_xmap.pgm"
-At first using this code run
-```
-chmod +x ./projection
-```
 you can find the program at the link:
 https://github.com/raboof/dualfisheye2equirectangular
 you can create a mapping file for several cameras and resolutions.
@@ -141,7 +137,6 @@ elements of face points based on FACS units
 rqt graph:
 
 ![screenshot from 2018-10-23 10 46 31](https://user-images.githubusercontent.com/36948734/47344754-d8d20c80-d6b1-11e8-8069-468994990e3c.png)
-<img src="/Documents/omerocket.png" alt="OmeRocket"/>
 
 
 © Omer Gabay

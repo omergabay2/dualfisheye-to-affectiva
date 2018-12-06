@@ -1,23 +1,33 @@
 import subprocess
 import time
 
+
 def main():
     try:
-        #chose 0 for camera and 1 for rosbag
-        mode = 0
+        #chose 1 for camera and 0 for rosbag
+        camera_or_rosbag = 1
+        # chose 1 for Microphone ON and 0 for Microphone OFF
+        microphone_mode = 1
 
         process1 = subprocess.Popen("roslaunch multi_camera_affdex multi_camera_affdex.launch", shell=True)
+        # Affectiva subprocess
         time.sleep(1)
         #waiting for affactiva
-        process2 = subprocess.Popen("python aff_sub.py",  shell=True)
 
-        if mode == 0:
+        process2 = subprocess.Popen("python aff_sub.py",  shell=True)
+        #subscriber to affectiva and respeaker, publish all data to "/omer_data"
+
+        if camera_or_rosbag == 1:
             process3 = subprocess.Popen("rosbag record -O last_record.bag /usb_cam/image_raw", shell=True)
             process4 = subprocess.Popen("python face_publisher.py", shell=True)
+            if microphone_mode == 1:
+                process5 = subprocess.Popen("rosbag record -O microphone.bag /ReSpeaker", shell=True)
+                process6 = subprocess.Popen("python omer_microphone.py", shell=True)
 
-        elif mode == 1:
-            #process3 = subprocess.Popen("mplayer ~/PycharmProjects/dualfisheye-to-affectiva/scripts/outpy.avi", shell=True)
-            process4 = subprocess.Popen("rosbag play last_record.bag", shell=True)
+        elif camera_or_rosbag == 0:
+            process3 = subprocess.Popen("rosbag play last_record.bag", shell=True)
+            if microphone_mode == 0:
+                process4 = subprocess.Popen("rosbag play microphone.bag", shell=True)
 
         while True:
             time.sleep(1)
@@ -27,6 +37,9 @@ def main():
         process2.kill()
         process3.kill()
         process4.kill()
+        if camera_or_rosbag == 1 and microphone_mode == 1:
+            process5.kill()
+            process6.kill()
         print("Program has stopped ...\n")
         exit()
 

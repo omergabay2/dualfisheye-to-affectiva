@@ -3,7 +3,8 @@ import rospy
 import matplotlib.pyplot as plt
 import time
 from std_msgs.msg import String
-from affdex_msgs.msg import AffdexFrameInfo, Vec2
+from affdex_msgs.msg import AffdexFrameInfo
+from std_msgs.msg import Int32
 
 new_data = str()
 start_time = time.time()
@@ -71,12 +72,23 @@ def callback_affdex_data(msg):
         plt.tight_layout()
         plt.pause(0.01)
     '''
+def respeaker_callback(msg):
+    global pub
+    gg = str(msg)
+    gg = gg[6:]
+    gg = int(gg)
+    for index, face in faces.items():
+        if gg > face[0]['X'] - 60 and gg < face[0]['X'] + 60:
+            person_is_speaking = index+1
+            str_respeaker = "Person # " + str(person_is_speaking) + " is now Speaking from X = " + str(gg) + " In time: " + str(time.time() - start_time)
+            pub.publish(str_respeaker)
+
 
 def main():
     rospy.init_node('affdex_data_edit', anonymous=True)
     rospy.Subscriber("/affdex_data", AffdexFrameInfo, callback_affdex_data)
+    rospy.Subscriber("/ReSpeaker", Int32, respeaker_callback)
     r = rospy.Rate(3)
-    #pub.publish(new_data)
     while not rospy.is_shutdown():
         r.sleep()
 

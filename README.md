@@ -39,10 +39,16 @@ Capture dualfisheye photos, converting them to rectangular, display the fixed pi
 Subscribing to image message in topic "/usb_cam/image/raw", recognize emotions and expression, publish them to ***"/affdex_data"*** topic as ***"affdex_msgs"*** messages
 
 
+### ***omer_microphone.py:***
+
+Recognize the location of each speaking person using ReSpeaker microphone and publishing it to ***"/ReSpeaker"*** topic
+
+
 ### ***aff_sub.py:***
 
-subscribing to affectiva message ***"/affdex_data"*** and find Person index of each person in the room. then publish  the original affectiva data + Person Index + location + location of looking - as String messages to ***"/omer_data"*** topic.
-In addition, the code plotting graphs of one emotion depends on time to all the faces.
+subscribing to affectiva message ***"/affdex_data"*** and find Person index of each person in the room.  
+Then publish the original affectiva data + Person Index + location + location of looking - as String messages to ***"/omer_data"*** topic.
+In addition, subscribing to ***"/ReSpeaker"*** topic and publishing the person id and location of each person that is talking.
 
 
 

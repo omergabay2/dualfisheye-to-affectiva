@@ -31,7 +31,7 @@ rostopic echo /omer_data
 
 ### ***face_publisher.py:***
 
-Capture dualfisheye photos, converting them to rectangular, display the fixed picture, recognize faces and publish them as image messages to ros topic  ***"/usb_cam/image/raw"***.
+Capture dualfisheye photos, converting them to rectangular, display the fixed picture, recognize faces and publish them as image messages to  ***"/usb_cam/image/raw"*** ros topic.
 
 
 ### ***Affectiva ros node (not mine):***

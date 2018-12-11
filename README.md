@@ -1,4 +1,4 @@
-# Curious-360 by Omer Gabay
+# Curious-360
 This code was written in order to recognize multiple faces expressions with 360 dualfisheye cameras.
 I used theta S camera - capturing 360 dualfisheye images with 15 fps.
 

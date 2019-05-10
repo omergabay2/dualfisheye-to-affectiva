@@ -123,9 +123,7 @@ def rospy_main_thread():
                 print("Published")
             except CvBridgeError as e:
                 print(e)
-
             rate.sleep()
-
 
 def main():
     try:

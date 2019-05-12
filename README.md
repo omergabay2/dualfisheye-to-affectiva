@@ -8,6 +8,12 @@ the mapping file was created by "projection.c" program which creates the files
 you can find the program at the link:
 https://github.com/raboof/dualfisheye2equirectangular
 you can create a mapping file for several cameras and resolutions.
+in order to run in the first time, run:
+
+
+```
+gcc -o projection projection.c -lm
+```
 
 in order to analayze expressions you need to get the affectiva ros node
 https://www.affectiva.com/
